@@ -55,7 +55,7 @@
 
 /* Unused arguments generate annoying warnings... */
 // 如果字典的私有数据不使用时
-// 用这个宏来避免编译器错误
+// 用这个宏来避免编译器错误 ===> 如何避免???
 #define DICT_NOTUSED(V) ((void) V)
 
 /*

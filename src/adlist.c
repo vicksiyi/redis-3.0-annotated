@@ -190,6 +190,14 @@ list *listAddNodeTail(list *list, void *value)
  * 如果 after 为 0 ，将新节点插入到 old_node 之前。
  * 如果 after 为 1 ，将新节点插入到 old_node 之后。
  *
+ * 问题: void * 是什么???为何要如此设计???
+ * 
+ * 回答: 
+ * 1、无条件接受各种类型(无类型指针)。
+ * 
+ * 2、因为对于这种通用型接口，你不知道用户的数据类型是什么，但是你必须能够处理用户的各种类型数据，因而会
+ * 使用void*。void*能包容地接受各种类型的指针。也就是说，如果你期望接口能够接受任何类型的参数，你可以使
+ * 用void*类型。但是在具体使用的时候，你必须转换为具体的指针类型。
  * T = O(1)
  */
 list *listInsertNode(list *list, listNode *old_node, void *value, int after) {
