@@ -746,7 +746,7 @@ sds sdscatvprintf(sds s, const char *fmt, va_list ap)
 }
 
 /*
- * 打印任意数量个字符串，并将这些字符串追加到给定 sds 的末尾
+ * 打印任意数量个字符串，并将这些字符串追加到给定 sds 的末尾  ==> 没看懂！！！
  *
  * T = O(N^2)
  */
@@ -1186,6 +1186,7 @@ sds *sdssplitlen(const char *s, int len, const char *sep, int seplen, int *count
     *count = elements;
     return tokens;
 
+// 内存不够，清除前面分配的token
 cleanup:
 {
     int i;
