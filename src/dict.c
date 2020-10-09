@@ -471,6 +471,9 @@ long long timeInMilliseconds(void)
  * 在给定毫秒数内，以 100 步为单位，对字典进行 rehash 。
  *
  * T = O(N)
+ * 
+ * 问题: 如果在给定时间内没有完成的话，该怎么办??? 会不会造成ht[0]、ht[1]都会存在节点
+ * 
  */
 int dictRehashMilliseconds(dict *d, int ms)
 {
@@ -691,6 +694,8 @@ dictEntry *dictReplaceRaw(dict *d, void *key)
  *
  * 找到并成功删除返回 DICT_OK ，没找到则返回 DICT_ERR
  *
+ * 注意: 删除&释放不一样！！！
+ * 
  * T = O(1)
  */
 static int dictGenericDelete(dict *d, const void *key, int nofree)
@@ -851,7 +856,9 @@ int _dictClear(dict *d, dictht *ht, void(callback)(void *))
 /* Clear & Release the hash table */
 /*
  * 删除并释放整个字典
- *
+ * 注意: 由于dict仅仅包含一个地址值，zfree(dict)不能释放整一个哈希表，所以得手动清除!!!
+ * 
+ * 
  * T = O(N)
  */
 void dictRelease(dict *d)
@@ -978,6 +985,10 @@ long long dictFingerprint(dict *d)
  * 创建并返回给定字典的不安全迭代器
  *
  * T = O(1)
+ * 
+ * 问题: 怎样子判断一个迭代器是否安全???
+ * 回答: 这里仅仅是定义不同的迭代器，用作不同的任务
+ * 
  */
 dictIterator *dictGetIterator(dict *d)
 {
