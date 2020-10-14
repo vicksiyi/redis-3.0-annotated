@@ -419,6 +419,7 @@ intset *intsetAdd(intset *is, int64_t value, uint8_t *success) {
         // - 如果存在，那么将 *success 设置为 0 ，并返回未经改动的整数集合
         // - 如果不存在，那么可以插入 value 的位置将被保存到 pos 指针中
         //   等待后续程序使用
+        // ======================== 避免再次查找pos，引起不必要消耗！！！！
         if (intsetSearch(is,value,&pos)) {
             if (success) *success = 0;
             return is;
